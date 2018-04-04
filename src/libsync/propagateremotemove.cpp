@@ -117,6 +117,8 @@ void PropagateRemoteMove::slotMoveJobFinished()
 
     QNetworkReply::NetworkError err = _job->reply()->error();
     _item->_httpErrorCode = _job->reply()->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+    _item->_responseTimeStamp = _job->responseTimestamp();
+    _item->_requestId = _job->requestId();
 
     if (err != QNetworkReply::NoError) {
         SyncFileItem::Status status = classifyError(err, _item->_httpErrorCode,
@@ -124,8 +126,6 @@ void PropagateRemoteMove::slotMoveJobFinished()
         done(status, _job->errorString());
         return;
     }
-
-    _item->_responseTimeStamp = _job->responseTimestamp();
 
     if (_item->_httpErrorCode != 201) {
         // Normally we expect "201 Created"
