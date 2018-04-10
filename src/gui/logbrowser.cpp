@@ -96,6 +96,12 @@ LogBrowser::LogBrowser(QWidget *parent)
 
     mainLayout->addWidget(btnbox);
 
+    // button to permanently save logs
+    auto saveLogsToDirBtn = new QCheckBox;
+    saveLogsToDirBtn->setText(tr("Permanently save logs"));
+    saveLogsToDirBtn->setToolTip(tr("BLA BLA BLA"));
+    btnbox->addButton(saveLogsToDirBtn, QDialogButtonBox::ActionRole);
+
     // clear button
     _clearBtn = new QPushButton;
     _clearBtn->setText(tr("Clear"));
